@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +29,7 @@ namespace TaskManager
                     o.UseNpgsql(connection).EnableSensitiveDataLogging().EnableDetailedErrors())
                 .AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<TaskManagerContext>();
             services.ConfigureApplicationCookie(o => o.LoginPath = "/Account/Login");
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
