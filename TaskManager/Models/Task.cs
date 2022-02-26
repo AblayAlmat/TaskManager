@@ -14,5 +14,7 @@ namespace TaskManager.Models
         public DateTime Deadline { get; set; }
         public DateTime FinishingDate { get; set; }
         public DateTime CreationDate { get; set; }
+        public User Creator { get; set; }
+        public User Executor { get; set; }
     }
 }
