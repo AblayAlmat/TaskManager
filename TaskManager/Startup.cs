@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TaskManager.Extensions;
 using TaskManager.Models;
 using TaskManager.Models.DbContext;
 using TaskManager.Services.RoleSeederService;
@@ -34,6 +35,8 @@ namespace TaskManager
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<RoleSeederService>();
             services.AddTransient<UserSeederService>();
+            services.AddServices();
+            services.AddRepositories();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
