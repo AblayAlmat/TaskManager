@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TaskManager.Models;
 using TaskManager.Models.DbContext;
+using TaskManager.Services.RoleSeederService;
+using TaskManager.Services.UserSeederService;
 
 namespace TaskManager
 {
@@ -30,6 +32,8 @@ namespace TaskManager
                 .AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<TaskManagerContext>();
             services.ConfigureApplicationCookie(o => o.LoginPath = "/Account/Login");
             services.AddAutoMapper(typeof(Startup));
+            services.AddTransient<RoleSeederService>();
+            services.AddTransient<UserSeederService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
