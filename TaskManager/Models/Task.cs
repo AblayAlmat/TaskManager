@@ -16,5 +16,6 @@ namespace TaskManager.Models
         public DateTime CreationDate { get; set; }
         public User Creator { get; set; }
         public User Executor { get; set; }
+        public Status Status { get; set; }
     }
 }
