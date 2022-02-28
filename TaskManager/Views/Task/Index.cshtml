@@ -1,0 +1,26 @@
+@model List<TaskManager.ViewModels.TaskViewModel>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Задачи</h2>
+<div>
+    <a asp-action="Create" class="btn btn-primary">Создать задачу</a>
+</div>
+
+<div class="wrapper">
+    @foreach (var task in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@task.Name</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@task.CreationDate</h6>
+                <p class="card-text">@task.Description</p>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    }
+</div>
