@@ -1,0 +1,49 @@
+@model TaskManager.ViewModels.RegisterViewModel
+
+@{
+    ViewBag.Title = "Регистрация пользователя";
+    Layout = "_Layout";
+}
+
+<h1 class="text-align-center mt-5">Добавление нового пользователя</h1>
+<form class="ml-5 mt-5" method="post" asp-controller="Account" asp-action="Register" asp-antiforgery="true">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Email">Email:</label><br/>
+        <input asp-for="Email"/>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="UserName">Имя пользователя:</label><br/>
+        <input asp-for="UserName"/>
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Пароль: </label><br/>
+        <input asp-for="Password"/>
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Подтвердите пароль: </label><br/>
+        <input asp-for="PasswordConfirmation"/>
+        <span asp-validation-for="PasswordConfirmation" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Выберите роль: </label><br/>
+        <select asp-for="Role" class="form-select" aria-label="Default select example">
+            <option value="User">Пользователь</option>
+            <option value="Employee">Системный администратор</option>
+        </select>
+        <span asp-validation-for="Role" class="text-danger"></span>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-primary mt-2" value="Зарегистрироваться"/>
+    </div>
+</form>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
