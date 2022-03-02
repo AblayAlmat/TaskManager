@@ -18,5 +18,15 @@ namespace TaskManager.Repositories.TaskRepository
         {
             return _context.Tasks.ToList();
         }
+
+        public void Add(Task task)
+        {
+            _context.Tasks.Add(task);
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }

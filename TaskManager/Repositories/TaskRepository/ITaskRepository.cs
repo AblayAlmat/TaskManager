@@ -3,7 +3,7 @@ using TaskManager.Models;
 
 namespace TaskManager.Repositories.TaskRepository
 {
-    public interface ITaskRepository
+    public interface ITaskRepository : IRepository<Task>
     {
         public List<Task> GetAll();
     }
