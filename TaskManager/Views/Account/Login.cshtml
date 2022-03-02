@@ -1,0 +1,31 @@
+﻿@model TaskManager.ViewModels.Account.LoginViewModel
+
+@{
+    ViewBag.Title = "Авторизация";
+    Layout = "_Layout";
+}
+
+<h1 class="text-align-center mt-5">Авторизация</h1>
+<form class="ml-5 mt-5" method="post" asp-controller="Account" asp-action="Login" asp-antiforgery="true">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div>
+        <label asp-for="Login">Email или имя пользователя:</label><br/>
+        <input asp-for="Login"/>
+        <span asp-validation-for="Login" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Пароль: </label><br/>
+        <input asp-for="Password"/>
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-primary mt-2" value="Войти"/>
+    </div>
+</form>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
