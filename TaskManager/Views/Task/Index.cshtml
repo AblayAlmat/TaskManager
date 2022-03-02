@@ -7,9 +7,12 @@
 }
 
 <h2>Задачи</h2>
-<div class="mb-3">
-    <a asp-action="Create" class="btn btn-primary">Создать задачу</a>
-</div>
+@if (User.IsInRole("User"))
+{
+    <div class="mb-3">
+        <a asp-action="Create" class="btn btn-primary">Создать задачу</a>
+    </div>
+}
 
 <div class="wrapper">
     @foreach (var task in Model)
