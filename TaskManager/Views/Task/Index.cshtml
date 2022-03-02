@@ -1,3 +1,4 @@
+@using TaskManager.Enums
 @model List<TaskManager.ViewModels.TaskViewModel>
 
 @{
@@ -6,18 +7,21 @@
 }
 
 <h2>Задачи</h2>
-<div>
+<div class="mb-3">
     <a asp-action="Create" class="btn btn-primary">Создать задачу</a>
 </div>
 
 <div class="wrapper">
     @foreach (var task in Model)
     {
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title">@task.Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@task.CreationDate</h6>
-                <p class="card-text">@task.Description</p>
+                <h5 class="card-title">Название задачи: @task.Name</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Дата создания: @task.CreationDate</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Дедлайн: @task.Deadline</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Статус: @EnumHelper.GetDescription(task.Status)</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Приоритет: @EnumHelper.GetDescription(task.Priority)</h6>
+                <p class="card-text">Описание: @task.Description</p>
                 <a href="#" class="card-link">Card link</a>
                 <a href="#" class="card-link">Another link</a>
             </div>
