@@ -26,7 +26,7 @@ namespace TaskManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TaskManagerContext>(o =>
                     o.UseNpgsql(connection).EnableSensitiveDataLogging().EnableDetailedErrors())
@@ -37,6 +37,7 @@ namespace TaskManager
             services.AddTransient<UserSeederService>();
             services.AddServices();
             services.AddRepositories();
+            services.AddResolvers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
