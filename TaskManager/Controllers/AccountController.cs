@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Services.AccountService;
-using TaskManager.ViewModels;
+using TaskManager.ViewModels.Account;
 
 namespace TaskManager.Controllers
 {
@@ -45,6 +45,34 @@ namespace TaskManager.Controllers
             }
         }
         
-        
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View(new LoginViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _accountService.LoginAsync(model);
+                    if (result)
+                    {
+                        return RedirectToAction("Index", "Task");
+                    }
+                    ModelState.AddModelError("", "Неверный логин или пароль");
+                }
+                
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
