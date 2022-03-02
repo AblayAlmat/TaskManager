@@ -1,6 +1,6 @@
 using AutoMapper;
 using TaskManager.Models;
-using TaskManager.ViewModels;
+using TaskManager.ViewModels.Account;
 
 namespace TaskManager.MappingConfigurations.Account
 {
