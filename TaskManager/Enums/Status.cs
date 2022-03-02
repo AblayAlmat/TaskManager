@@ -1,9 +1,11 @@
+using System.ComponentModel;
+
 namespace TaskManager.Enums
 {
     public enum Status
     {
-        Opened = 1,
-        InProgress,
-        Closed
+        [Description("Открыт")] Opened = 1,
+        [Description("В процессе выполнения")] InProgress,
+        [Description("Закрыт")] Closed
     }
 }

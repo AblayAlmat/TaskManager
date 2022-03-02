@@ -1,9 +1,11 @@
+using System.ComponentModel;
+
 namespace TaskManager.Enums
 {
     public enum Priority
     {
-        Low = 1,
-        Medium,
-        High
+        [Description("Низкий")] Low = 1,
+        [Description("Средний")] Medium,
+        [Description("Высокий")] High
     }
 }
