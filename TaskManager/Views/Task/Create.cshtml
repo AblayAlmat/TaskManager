@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TaskManager.Enums
+@model TaskManager.ViewModels.TaskCreateViewModel
+@inject UserManager<User> _userManager
+
+@{
+    ViewBag.Title = "Создание задачи";
+    Layout = "_Layout";
+}
+
+<h1 class="text-align-center mt-5">Добавление новой задачи</h1>
+<form class="ml-5 mt-5" method="post" asp-controller="Task" asp-action="Create" asp-antiforgery="true">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Name">Название задачи:</label><br/>
+        <input asp-for="Name"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Description">Описание задачи:</label><br/>
+        <textarea asp-for="Description" rows="4" cols="50"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Статус: </label><br/>
+        <select asp-for="Priority">
+            @{
+                foreach (var priority in Enum.GetValues(typeof(Priority)))
+                {
+                    <option value="@priority">@EnumHelper.GetDescription((Priority) priority)</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="Priority" class="text-danger"></span>
+    </div>
+    <label>Дата дедлайна:</label>
+    <div>
+        <input asp-for="Deadline" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+        <span asp-validation-for="Deadline"></span>
+    </div>
+    <input type="hidden" asp-for="CreationDate" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+    <input type="hidden" asp-for="CreatorId" value="@_userManager.GetUserId(User)">
+    <input type="hidden" asp-for="Status" value="1">
+    <div>
+        <input type="submit" class="btn btn-primary mt-2" value="Создать"/>
+    </div>
+</form>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
