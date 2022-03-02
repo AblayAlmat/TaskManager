@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using TaskManager.Models;
-using TaskManager.ViewModels;
+using TaskManager.ViewModels.Account;
 
 namespace TaskManager.Services.AccountService
 {
@@ -31,6 +31,25 @@ namespace TaskManager.Services.AccountService
                 await _userManager.AddToRoleAsync(user, model.Role);
                 await _signInManager.SignInAsync(user, false);
                 return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> LoginAsync(LoginViewModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Login);
+            if (user != null)
+            {
+                var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                return result.Succeeded;
+            }
+
+            user = await _userManager.FindByEmailAsync(model.Login);
+            if (user != null)
+            {
+                var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                return result.Succeeded;
             }
 
             return false;
