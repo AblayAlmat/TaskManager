@@ -25,7 +25,7 @@
                 <h6 class="card-subtitle mb-2 text-muted">Статус: @EnumHelper.GetDescription(task.Status)</h6>
                 <h6 class="card-subtitle mb-2 text-muted">Приоритет: @EnumHelper.GetDescription(task.Priority)</h6>
                 <p class="card-text">Описание: @task.Description</p>
-                <a href="#" class="card-link">Card link</a>
+                <a asp-action="GetDetails" asp-route-id="@task.Id" class="card-link">Подробная информация</a>
                 <a href="#" class="card-link">Another link</a>
             </div>
         </div>
