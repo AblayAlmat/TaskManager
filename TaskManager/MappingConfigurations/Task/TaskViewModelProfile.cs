@@ -8,6 +8,8 @@ namespace TaskManager.MappingConfigurations.Task
         public TaskViewModelProfile()
         {
             CreateMap<Models.Task, TaskViewModel>()
+                .ForMember(dest => dest.Id, opt =>
+                    opt.MapFrom(t => t.Id))
                 .ForMember(dest => dest.Name, opt =>
                     opt.MapFrom(t => t.Name))
                 .ForMember(dest => dest.Description, opt =>
