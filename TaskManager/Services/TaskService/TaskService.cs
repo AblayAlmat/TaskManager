@@ -31,5 +31,11 @@ namespace TaskManager.Services.TaskService
             _taskRepository.Add(task);
             _taskRepository.Save();
         }
+        
+        public TaskViewModel GetDetails(string id)
+        {
+            var task = _taskRepository.GetById(id);
+            return _mapper.Map<TaskViewModel>(task);
+        }
     }
 }

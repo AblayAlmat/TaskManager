@@ -7,5 +7,6 @@ namespace TaskManager.Services.TaskService
     {
         public List<TaskViewModel> GetAllTaskViewModels();
         public void CreateTask(TaskCreateViewModel model);
+        public TaskViewModel GetDetails(string id);
     }
 }
