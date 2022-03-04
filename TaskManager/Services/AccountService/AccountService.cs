@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using TaskManager.Models;
 using TaskManager.ViewModels.Account;
+using Task = System.Threading.Tasks.Task;
 
 namespace TaskManager.Services.AccountService
 {
@@ -53,6 +54,11 @@ namespace TaskManager.Services.AccountService
             }
 
             return false;
+        }
+
+        public async Task LogOut()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

@@ -74,5 +74,20 @@ namespace TaskManager.Controllers
                 return BadRequest();
             }
         }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LogOut()
+        {
+            try
+            {
+                await _accountService.LogOut();
+                return RedirectToAction("Login");
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
