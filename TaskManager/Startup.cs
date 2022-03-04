@@ -29,7 +29,7 @@ namespace TaskManager
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TaskManagerContext>(o =>
-                    o.UseNpgsql(connection).EnableSensitiveDataLogging().EnableDetailedErrors())
+                    o.UseLazyLoadingProxies().UseNpgsql(connection).EnableSensitiveDataLogging().EnableDetailedErrors())
                 .AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<TaskManagerContext>();
             services.ConfigureApplicationCookie(o => o.LoginPath = "/Account/Login");
             services.AddAutoMapper(typeof(Startup));
