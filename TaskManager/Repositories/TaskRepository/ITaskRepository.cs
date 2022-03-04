@@ -6,5 +6,6 @@ namespace TaskManager.Repositories.TaskRepository
     public interface ITaskRepository : IRepository<Task>
     {
         public List<Task> GetAll();
+        public Task GetById(string id);
     }
 }

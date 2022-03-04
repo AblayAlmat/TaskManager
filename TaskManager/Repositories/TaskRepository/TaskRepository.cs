@@ -28,5 +28,10 @@ namespace TaskManager.Repositories.TaskRepository
         {
             _context.SaveChanges();
         }
+
+        public Task GetById(string id)
+        {
+            return _context.Tasks.FirstOrDefault(t => t.Id == id);
+        }
     }
 }
