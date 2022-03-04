@@ -1,0 +1,22 @@
+﻿@model TaskManager.ViewModels.TaskViewModel
+
+@{
+    ViewBag.Title = "Детали задачи";
+    Layout = "_Layout";
+}
+
+<div class="card">
+  <div class="card-header">
+    Детальная информация о задаче
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Название: @Model.Name</h5>
+    <h5 class="card-title">Дедлайн: @Model.Deadline</h5>
+    <h5 class="card-title">Приоритет: @EnumHelper.GetDescription(Model.Priority)</h5>
+    <h5 class="card-title">Статус: @EnumHelper.GetDescription(Model.Status)</h5>
+    <h5 class="card-title">Дата создания: @Model.CreationDate</h5>
+    <h5 class="card-title">Создал задачу: @Model.CreatorName</h5>
+    <p class="card-text">Описание: @Model.Description</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
