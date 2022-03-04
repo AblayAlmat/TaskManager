@@ -64,5 +64,20 @@ namespace TaskManager.Controllers
                 return BadRequest();
             }
         }
+        
+        [HttpGet]
+        [Authorize()]
+        public IActionResult GetDetails(string id)
+        {
+            try
+            {
+                var details = _taskService.GetDetails(id);
+                return View(details);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
