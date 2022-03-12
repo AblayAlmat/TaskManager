@@ -9,5 +9,7 @@ namespace TaskManager.Services.TaskService
         public void CreateTask(TaskCreateViewModel model);
         public TaskViewModel GetDetails(string id);
         public void ChangeStatus(StatusChangeViewModel model);
+        public TaskEditViewModel GetTaskEditViewModel(string id);
+        public void Edit(TaskEditViewModel model);
     }
 }

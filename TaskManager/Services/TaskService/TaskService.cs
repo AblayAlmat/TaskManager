@@ -56,5 +56,21 @@ namespace TaskManager.Services.TaskService
             }
             _taskRepository.Save();
         }
+
+        public TaskEditViewModel GetTaskEditViewModel(string id)
+        {
+            var task = _taskRepository.GetById(id);
+            return _mapper.Map<TaskEditViewModel>(task);
+        }
+
+        public void Edit(TaskEditViewModel model)
+        {
+            var task = _taskRepository.GetById(model.Id);
+            task.Name = model.Name;
+            task.Description = model.Description;
+            task.Priority = model.Priority;
+            task.Deadline = model.Deadline;
+            _taskRepository.Save();
+        }
     }
 }
