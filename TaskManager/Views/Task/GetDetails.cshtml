@@ -1,4 +1,7 @@
-﻿@model TaskManager.ViewModels.TaskViewModel
+﻿@using TaskManager.Enums
+@using Microsoft.AspNetCore.Identity
+@model TaskManager.ViewModels.TaskViewModel
+@inject UserManager<User> _userManager
 
 @{
     ViewBag.Title = "Детали задачи";
@@ -6,17 +9,60 @@
 }
 
 <div class="card">
-  <div class="card-header">
-    Детальная информация о задаче
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Название: @Model.Name</h5>
-    <h5 class="card-title">Дедлайн: @Model.Deadline</h5>
-    <h5 class="card-title">Приоритет: @EnumHelper.GetDescription(Model.Priority)</h5>
-    <h5 class="card-title">Статус: @EnumHelper.GetDescription(Model.Status)</h5>
-    <h5 class="card-title">Дата создания: @Model.CreationDate</h5>
-    <h5 class="card-title">Создал задачу: @Model.CreatorName</h5>
-    <p class="card-text">Описание: @Model.Description</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
+    <div class="card-header">
+        Детальная информация о задаче
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Название: @Model.Name</h5>
+        <h5 class="card-title">Дедлайн: @Model.Deadline</h5>
+        <h5 class="card-title">Приоритет: @EnumHelper.GetDescription(Model.Priority)</h5>
+        <h5 class="card-title">Статус: @EnumHelper.GetDescription(Model.Status)</h5>
+        <h5 class="card-title">Дата создания: @Model.CreationDate</h5>
+        <h5 class="card-title">Создал задачу: @Model.CreatorName</h5>
+        @if (Model.Status != Status.Opened)
+        {
+            <h5 class="card-title">Взял в работу задачу: @Model.ExecutorName</h5>
+        }
+        @if (Model.Status == Status.Closed)
+        {
+            <h5 class="card-title">Дата закрытия задачи: @Model.FinishingDate</h5>
+        }
+        <p class="card-text">Описание: @Model.Description</p>
+        @if (User.IsInRole("Employee") && (Model.Status == Status.Opened || (User.Identity != null && Model.Status == Status.InProgress && Model.ExecutorName == User.Identity.Name)))
+        {
+            <input onclick='changeStatus("@Model.Id", @Convert.ToInt32(Model.Status), "@_userManager.GetUserId(User)")' type="button" class="btn btn-primary mt-2" value="Сменить статус"/>
+        }
+        <a onclick="changeStatus(@Model.Id, @Model.Status, @_userManager.GetUserId(User))" href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+    function changeStatus(id, status, userId){
+      let url = "/Task/ChangeStatus";
+      
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", url);
+      
+      xhr.setRequestHeader("Accept", "application/json");
+      xhr.setRequestHeader("Content-Type", "application/json");
+      
+      xhr.onreadystatechange = function () {
+         if (xhr.readyState === 4) {
+            console.log(xhr.responseText);
+         }};
+      
+      let data = `{
+        "TaskId": "${id}",
+        "CurrentStatus": ${status},
+        "ExecutorId": "${userId}" 
+      }`;
+      
+      console.log(data)
+      
+      xhr.send(data);
+      window.location.reload();
+    }
+  </script>
+}
