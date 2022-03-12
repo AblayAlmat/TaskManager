@@ -79,5 +79,20 @@ namespace TaskManager.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Employee")]
+        public IActionResult ChangeStatus([FromBody] StatusChangeViewModel model)
+        {
+            try
+            {
+                _taskService.ChangeStatus(model);
+                return Ok(200);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
