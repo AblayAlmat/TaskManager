@@ -32,6 +32,10 @@
         {
             <input onclick='changeStatus("@Model.Id", @Convert.ToInt32(Model.Status), "@_userManager.GetUserId(User)")' type="button" class="btn btn-primary mt-2" value="Сменить статус"/>
         }
+        @if (Model.Status == Status.Opened && User.Identity != null && Model.CreatorName == User.Identity.Name)
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактировать</a>
+        }
     </div>
 </div>
 
