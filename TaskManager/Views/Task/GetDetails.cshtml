@@ -65,7 +65,12 @@
       console.log(data)
       
       xhr.send(data);
-      window.location.reload();
+      setTimeout(reloadPage, 2000);  
     }
+    
+    function reloadPage(){
+      window.location.reload();  
+    }
+        
   </script>
 }
