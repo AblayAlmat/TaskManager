@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using AutoMapper;
+using TaskManager.Enums;
 using TaskManager.Models;
 using TaskManager.Repositories.TaskRepository;
+using TaskManager.Repositories.UserRepository;
 using TaskManager.ViewModels;
 
 namespace TaskManager.Services.TaskService
@@ -10,13 +13,16 @@ namespace TaskManager.Services.TaskService
     {
         private readonly ITaskRepository _taskRepository;
         private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
 
         public TaskService(
             ITaskRepository taskRepository, 
-            IMapper mapper)
+            IMapper mapper, 
+            IUserRepository userRepository)
         {
             _taskRepository = taskRepository;
             _mapper = mapper;
+            _userRepository = userRepository;
         }
 
         public List<TaskViewModel> GetAllTaskViewModels()
@@ -36,6 +42,19 @@ namespace TaskManager.Services.TaskService
         {
             var task = _taskRepository.GetById(id);
             return _mapper.Map<TaskViewModel>(task);
+        }
+
+        public void ChangeStatus(StatusChangeViewModel model)
+        {
+            var task = _taskRepository.GetById(model.TaskId);
+            var user = _userRepository.GetById(model.ExecutorId);
+            task.Executor = user;
+            task.Status = (Status) ((int) model.CurrentStatus + 1);
+            if (task.Status == Status.Closed)
+            {
+                task.FinishingDate = DateTime.Now;
+            }
+            _taskRepository.Save();
         }
     }
 }
