@@ -46,7 +46,7 @@ namespace TaskManager.Services.AccountService
                 return result.Succeeded;
             }
 
-            user = await _userManager.FindByEmailAsync(model.Login);
+            user = await _userManager.FindByNameAsync(model.Login);
             if (user != null)
             {
                 var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
