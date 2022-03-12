@@ -26,7 +26,7 @@ namespace TaskManager.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return NotFound();
             }
         }
 
@@ -40,7 +40,7 @@ namespace TaskManager.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return NotFound();
             }
         }
         
@@ -76,7 +76,7 @@ namespace TaskManager.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return NotFound();
             }
         }
 
@@ -88,6 +88,40 @@ namespace TaskManager.Controllers
             {
                 _taskService.ChangeStatus(model);
                 return Ok(200);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string id)
+        {
+            try
+            {
+                var model = _taskService.GetTaskEditViewModel(id);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(TaskEditViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _taskService.Edit(model);
+                    return RedirectToAction("Index");
+                }
+
+                return View(model);
             }
             catch (Exception e)
             {
