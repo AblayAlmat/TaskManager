@@ -32,7 +32,6 @@
         {
             <input onclick='changeStatus("@Model.Id", @Convert.ToInt32(Model.Status), "@_userManager.GetUserId(User)")' type="button" class="btn btn-primary mt-2" value="Сменить статус"/>
         }
-        <a onclick="changeStatus(@Model.Id, @Model.Status, @_userManager.GetUserId(User))" href="#" class="btn btn-primary">Go somewhere</a>
     </div>
 </div>
 
