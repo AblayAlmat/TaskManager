@@ -42,34 +42,31 @@
 @section Scripts
 {
     <script type="text/javascript">
-    function changeStatus(id, status, userId){
+    async function changeStatus(id, status, userId){
       let url = "/Task/ChangeStatus";
+      let body = {
+           TaskId: id,
+           CurrentStatus: status,
+           ExecutorId: userId
+      }
       
-      let xhr = new XMLHttpRequest();
-      xhr.open("POST", url);
+      let response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (response.ok){
+         window.location.reload();   
+      }
+      else {
+         let result = await response.json();
+         alert(result.message)    
+      }
       
-      xhr.setRequestHeader("Accept", "application/json");
-      xhr.setRequestHeader("Content-Type", "application/json");
-      
-      xhr.onreadystatechange = function () {
-         if (xhr.readyState === 4) {
-            console.log(xhr.responseText);
-         }};
-      
-      let data = `{
-        "TaskId": "${id}",
-        "CurrentStatus": ${status},
-        "ExecutorId": "${userId}" 
-      }`;
-      
-      console.log(data)
-      
-      xhr.send(data);
-      setTimeout(reloadPage, 2000);  
-    }
-    
-    function reloadPage(){
-      window.location.reload();  
     }
         
   </script>
